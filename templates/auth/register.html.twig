@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<head>
+		<title>
+			{% block title %}
+				Luxury Services recruitment & services
+			{% endblock %}
+		</title>
+	</head>
+{% endblock %}
+
+{% block AssetsScripts %}
+    <link href="https://assets-luxury.projets.garage404.com/css/materialize.css" rel="stylesheet">
+    <link href="https://assets-luxury.projets.garage404.com/css/bootstrap.css" rel="stylesheet">
+    <link href="https://assets-luxury.projets.garage404.com/css/style.css" rel="stylesheet">
+    <link href="https://assets-luxury.projets.garage404.com/css/custom.css" rel="stylesheet">
+    <link href="https://assets-luxury.projets.garage404.com/css/revolution-settings.css" rel="stylesheet">
+    <link href="https://assets-luxury.projets.garage404.com/css/revolution-layers.css" rel="stylesheet">
+    <link href="https://assets-luxury.projets.garage404.com/css/revolution-navigation.css" rel="stylesheet">
+
+    <script src="https://assets-luxury.projets.garage404.com/js/modernizr.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/animated-headline.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/bootstrap-tabcollapse.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/coundown-timer.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/equalheight.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/menuzord.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/smooth-menu.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/imagesloaded.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/owl-carousel.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/wow.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/scripts.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/bootstrap.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/materialize.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-easing.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-countTo.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-sticky.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-stellar.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-inview.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-shuffle.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-magnific-popup.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/jquery-flexslider.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-tools.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-scripts.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-video.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-slideanims.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-actions.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-layeranimation.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-kenburn.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-navigation.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-migration.js"></script>
+    <script src="https://assets-luxury.projets.garage404.com/js/revolution-ext-parallax.js"></script>
+
+
+{% endblock %}
+
+{% block AnotherStyle %}
+    <style>
+        .page-title-bg {
+            background-image: url(../../assets/img/bg3.jpg);
+        }
+        .log-section form .checkbox label {
+            font-size: 16px
+        }
+        .log-section form .checkbox label a {
+            color: #b6a575;
+            text-decoration: underline;
+            text-transform: inherit;
+            font-size: 16px
+        }
+        .log-section form .links a {
+            display: block;
+            text-align: center;
+            color: #b6a575;
+            text-decoration: underline;
+            text-transform: inherit;
+            font-size: 16px
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="base">
+
+        <!-- Page -->
+        <div class="page">
+
+            <!-- Page Header-->
+            <section class="page-title page-title-bg fixed-bg overlay dark-5 padding-top-160 padding-bottom-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="white-text">Register</h2>
+                            <span class="white-text">Welcome on board</span>
+                            <ol class="breadcrumb">
+                                <li><a href="#!">Home</a></li>
+                                <li class="active">Register</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Page Content-->
+            <section class="section-padding gray-bg log-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
+                            <h3 class="text-extrabold">Create a new account</h3>
+                            <form id="register-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
+
+                                <input type="hidden" name="_token" value="">
+
+                                <div class="input-field">
+                                    <input type="email" name="email" id="email" value=""
+                                        required
+                                        data-parsley-trigger="change"
+                                        data-parsley-error-message="A valid email address is required.">
+                                    <label for="email">Email</label>
+                                    <span class="help-block">Type your email address.</span>
+                                </div>
+                                <div class="input-field">
+                                    <input type="password" name="password" id="password" value=""
+                                        required
+                                        data-parsley-trigger="change"
+                                        data-parsley-minlength="6"
+                                        data-parsley-error-message="The password must be at least 6 characters.">
+                                    <label for="password">Password</label>
+                                    <i class="fa fa-eye show-password"></i>
+                                    <span class="help-block">Type your password.</span>
+                                </div>
+                                <div class="input-field">
+                                    <input type="password" name="password_confirmation" id="password_confirmation" value=""
+                                        required
+                                        data-parsley-trigger="change"
+                                        data-parsley-equalto="#password"
+                                        data-parsley-error-message="Password does not match.">
+                                    <label for="password_confirmation">Confirm Password</label>
+                                    <i class="fa fa-eye show-password"></i>
+                                    <span class="help-block">Confirm your password.</span>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="accept-terms" value="1" id="accept-terms" required/>
+                                    <label for="accept-terms">I have read and I accept the <a href="#!" target="_blank">Terms Of Use</a></label>
+                                </div>
+
+                                <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">Create an account</button>
+                                <div class="links">
+                                    <a href="/login.html">Already have an account? Click here</a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block AssetsScriptsFIN %}
+
+	<script type="text/javascript">
+
+		onAppReady(function () {
+    $('.preload').remove();
+    });
+        </script>
+{% endblock %}
