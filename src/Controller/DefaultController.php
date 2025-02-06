@@ -14,11 +14,11 @@ class DefaultController extends AbstractController
     }
 
 
-    #[Route('/login', name: 'app_login')]
-    public function login(): Response
-    {
-        return $this->render('auth/login.html.twig');
-    }
+    // #[Route('/login', name: 'app_login')]
+    // public function login(): Response
+    // {
+    //     return $this->render('auth/login.html.twig');
+    // }
 
 
     #[Route('/profile', name: 'app_profile')]
@@ -27,11 +27,11 @@ class DefaultController extends AbstractController
         return $this->render('auth/profile.html.twig');
     }
 
-    #[Route('/register', name: 'app_register')]
-    public function register(): Response
-    {
-        return $this->render('auth/register.html.twig');
-    }
+    // #[Route('/register', name: 'app_register')]
+    // public function register(): Response
+    // {
+    //     return $this->render('auth/register.html.twig');
+    // }
 
     #[Route('/jobs/index', name: 'app_jobsIndex')]
     public function jobsIndex(): Response
