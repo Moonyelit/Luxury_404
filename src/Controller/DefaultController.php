@@ -21,11 +21,11 @@ class DefaultController extends AbstractController
     // }
 
 
-    #[Route('/profile', name: 'app_profile')]
-    public function profile(): Response
-    {
-        return $this->render('auth/profile.html.twig');
-    }
+    // #[Route('/profile', name: 'app_profile')]
+    // public function profile(): Response
+    // {
+    //     return $this->render('auth/profile.html.twig');
+    // }
 
     // #[Route('/register', name: 'app_register')]
     // public function register(): Response

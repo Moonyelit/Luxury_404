@@ -117,7 +117,24 @@
 						<div class="row">
 							<h3 class="text-extrabold">Your personal informations</h3>
 							<div class="col-xs-12 col-sm-6 col-md-4">
+
+						{{ form_start(candidateForm,{
+							'attr': {
+								'id': 'candidateForm',
+								'role': 'form',
+								'method': 'post',
+								'autocomplete': 'off',
+								'data-parsley-validate': '',
+								'enctype': 'multipart/form-data'
+							}
+						})}}
+ 
+								{{ form_errors(registrationForm) }}
+
 								<div class="input-field">
+									{{form_widget(candidateForm.gender}}
+									{{form_label(candidateForm.gender)}}
+									
 									<select id="gender" name="gender">
 										<option value="">Choose an option...</option>
 										<option value="male">Male</option>
