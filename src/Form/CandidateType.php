@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Experience;
 use App\Entity\Gender;
+use App\Entity\JobCategory;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -107,7 +109,7 @@ class CandidateType extends AbstractType
                     'class' => 'form-control',
                     'id' => 'nationality',
                 ],
-                'label' => 'nationality'
+                'label' => 'Nationality'
                 ])
 
             ->add('birthdate', DateType::class, [
@@ -119,7 +121,7 @@ class CandidateType extends AbstractType
                     'class' => 'form-control datepicker',
                     'id' => 'birth_date',
                 ],
-                'label' => 'birthdate',
+                'label' => 'Birthdate',
             ])
 
 
@@ -129,7 +131,68 @@ class CandidateType extends AbstractType
                     'class' => 'form-control',
                     'id' => 'birth_place',
                 ],
-                'label' => 'birth_place',
+                'label' => 'Birthplace',
+            ])
+
+            ->add('experience', EntityType::class, [
+                'class' => Experience::class,
+                'choice_label' => 'time',
+                'required' => false,
+                'attr' => [
+                    'id' => 'experience',
+                ],
+                'label' => 'Experience',
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+                'placeholder' => 'Choose an option...',
+            ])
+
+            ->add('passportfile', FileType::class,[
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'file/pdf',
+                            'file/doc',
+                            'file/docx',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid document',
+                    ])
+                ],
+                'attr' => [
+                    'accept' => '.jpg,.jpeg,.png,.gif',
+                    'id' => 'passport',
+                ]
+            ])
+
+
+            ->add('jobcategory', EntityType::class, [
+                'class' => JobCategory::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'attr' => [
+                    'id' => 'job_category',
+                ],
+                'label' => 'Job category',
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+                'placeholder' => 'Interest in job sector',
+            ])
+
+            ->add('description', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'description',
+                ],
+                'label' => 'Description',
             ])
 
 

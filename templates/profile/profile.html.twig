@@ -213,7 +213,6 @@
 									<span>
 										<i class="material-icons">insert_photo</i>
 										Photo</span>
-									{# <input id="photo" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="photo" type="file"> #}
 									{{ form_widget(form.profilePictureFile) }}
 									{{ form_errors(form.profilePictureFile) }}
 								</div>
@@ -250,8 +249,6 @@
 								{# Nationality #}
 								<div class="col-xs-12 col-sm-6">
 									<div class="input-field">
-										{# <input id="nationality" name="nationality" type="text" value="">
-										<label for="nationality">Nationality</label> #}
 									{{ form_widget(form.nationality) }}
 									{{ form_label(form.nationality) }}
 									{{ form_errors(form.nationality) }}
@@ -261,8 +258,6 @@
 								{# Birthdate #}
 								<div class="col-xs-12 col-sm-6">
 									<div class="input-field">
-										{# <input class="datepicker" id="birth_date" name="birth_date" type="text" value="">
-										<label for="birth_date">Birthdate</label> #}
 									{{ form_widget(form.birthdate) }}
 									{{ form_label(form.birthdate) }}
 									{{ form_errors(form.birthdate) }}
@@ -272,8 +267,6 @@
 								{# Birthplace #}
 								<div class="col-xs-12 col-sm-6">
 									<div class="input-field">
-										{# <input id="birth_place" name="birth_place" type="text" value="">
-										<label for="birth_place">Birthplace</label> #}
 									{{ form_widget(form.birthplace) }}
 									{{ form_label(form.birthplace) }}
 									{{ form_errors(form.birthplace) }}
@@ -293,6 +286,13 @@
 								<div class="file-field input-field">
 									<div class="btn btn-lg primary waves-effect waves-light">
 										<span>
+
+
+									{{ form_widget(form.passportFile) }}
+									{{ form_errors(form.passportFile) }}
+
+
+
 											<i class="material-icons">&#xE24D;</i>
 											Passport</span>
 										<input id="passport" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="passport" type="file">
@@ -331,32 +331,26 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="col-xs-12 col-sm-12">
 								<div class="input-field" style="margin-top: 5px;">
-									<select id="job_sector" name="job_sector[]" multiple data-placeholder="Type in or Select job sector you would be interested in.">
-										<option value="">Choose an option...</option>
-										<option value="">job sector</option>
-									</select>
-									<label for="job_sector" class="active">Interest in job sector</label>
+									{{ form_widget(form.jobcategory) }}
+									{{ form_label(form.jobcategory) }}
+									{{ form_errors(form.jobcategory) }}
 								</div>
 							</div>
+
+
 							<div class="col-xs-12 col-sm-12">
 								<div class="input-field">
-									<select id="experience" name="experience">
-										<option value="">Choose</option>
-										<option value="3m">0 - 6 month</option>
-										<option value="6m">6 month - 1 year</option>
-										<option value="1y">1 - 2 years</option>
-										<option value="2y">2+ years</option>
-										<option value="5y" selected="selected">5+ years</option>
-										<option value="10y">10+ years</option>
-									</select>
-									<label for="experience" class="active">Experience</label>
+									{{ form_widget(form.experience) }}
+									{{ form_label(form.experience) }}
+									{{ form_errors(form.experience) }}
 								</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12">
 							<div class="input-field">
-								<textarea class="materialize-textarea" id="description" name="description" cols="50" rows="10"></textarea>
-								<label for="description">Short description for your profile, as well as more personnal informations (e.g. your hobbies/interests ). You can also paste any link you want.</label>
+								{{ form_widget(form.description) }}
+								{{ form_label(form.description) }}
+								{{ form_errors(form.description) }}
 							</div>
 						</div>
 					</div>

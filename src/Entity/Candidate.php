@@ -63,6 +63,18 @@ class Candidate
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $birthplace = null;
 
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?Experience $experience = null;
+
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?JobCategory $jobCategory = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $passport = null;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
@@ -238,6 +250,54 @@ class Candidate
     public function setBirthplace(?string $birthplace): static
     {
         $this->birthplace = $birthplace;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?Experience $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getJobCategory(): ?JobCategory
+    {
+        return $this->jobCategory;
+    }
+
+    public function setJobCategory(?JobCategory $jobCategory): static
+    {
+        $this->jobCategory = $jobCategory;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPassport(): ?string
+    {
+        return $this->passport;
+    }
+
+    public function setPassport(?string $passport): static
+    {
+        $this->passport = $passport;
 
         return $this;
     }
