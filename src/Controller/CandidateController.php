@@ -78,4 +78,26 @@ final class CandidateController extends AbstractController
 
         return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    public function CandidateForm(CandidateRepository $candidateRepository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $candidate = new Candidate();
+        $form = $this->createForm(CandidateType::class, $candidate);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($candidate);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('profile/profile.html.twig', [
+            'candidates' => $candidateRepository->findAll(),
+            'candidateForm' => $form->createView(),
+        ]);
+    }
 }

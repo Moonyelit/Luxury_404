@@ -3,44 +3,65 @@
 namespace App\Controller;
 
 use App\Entity\Candidate;
+use App\Entity\User;
 use App\Form\CandidateType;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Routing\Attribute\Route;
 
-class ProfileController extends AbstractController
+final class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile', methods: ['GET', 'POST'])]
-    public function profile(Request $request, EntityManagerInterface $entityManager, UserInterface $user): Response
+    #[Route('/profile', name: 'app_profile')]
+    public function index(EntityManagerInterface $entityManager, Request $request, FileUploader $fileUploader): Response
     {
-        $candidate = new Candidate();
-        $candidate->setUser($user);
+        /** @var User */
+        $user = $this->getUser();
 
-        $form = $this->createForm(CandidateType::class, $candidate);
-        $form->handleRequest($request);
+        $candidate = $user->getCandidate();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if(!$candidate){
+            $candidate = new Candidate();
+            $candidate->setUser($user);
+            $entityManager->persist($candidate);
+            $entityManager->flush();
+        }
+
+        if(!$user->isVerified())
+        {
+            return $this->render('errors/not-verified.html.twig', [
+            
+            ]);
+        }
+
+        $formCandidate = $this->createForm(CandidateType::class, $candidate);
+        $formCandidate->handleRequest($request);
+
+        if($formCandidate->isSubmitted() && $formCandidate->isValid()){
+            // dd($candidate);
+            $profilPictureFile = $formCandidate->get('profilePictureFile')->getData();
+            // dd($profilPictureFile);
+
+            if($profilPictureFile){
+                $profilPictureName = $fileUploader->upload($profilPictureFile, $candidate, 'profilePicture', 'profile_pictures');
+                $candidate->setProfilePicture($profilPictureName);
+            }
+
             $entityManager->persist($candidate);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_profile');
+            $this->addFlash('success', 'Profile updated successfully');
         }
 
+        
+
+
         return $this->render('profile/profile.html.twig', [
-            'form' => $form->createView(),
+            'form' => $formCandidate->createView(),
+            'candidate' => $candidate,
+        
         ]);
     }
 }
-
-
-
-// #[Route('/profile', name: 'app_profile')]
-// public function profile(): Response
-// {
-//     return $this->render('auth/profile.html.twig');
-
-
-// }
