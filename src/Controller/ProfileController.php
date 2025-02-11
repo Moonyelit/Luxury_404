@@ -5,17 +5,20 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Entity\User;
 use App\Form\CandidateType;
+use App\Form\ChangePasswordType;
+use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(EntityManagerInterface $entityManager, Request $request, FileUploader $fileUploader): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, FileUploader $fileUploader, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         /** @var User */
         $user = $this->getUser();
@@ -36,7 +39,7 @@ final class ProfileController extends AbstractController
             ]);
         }
 
-
+        // Formulaire de mise à jour du profil
         $formCandidate = $this->createForm(CandidateType::class, $candidate);
         $formCandidate->handleRequest($request);
     
@@ -45,7 +48,6 @@ final class ProfileController extends AbstractController
             $passportFile = $formCandidate->get('passportFile')->getData();
             $CVFile = $formCandidate->get('CVFile')->getData();
 
-    
             if ($profilePictureFile) {
                 $profilePictureName = $fileUploader->upload($profilePictureFile, $candidate, 'profilePicture', 'profile_pictures');
                 $candidate->setProfilePicture($profilePictureName);
@@ -61,20 +63,66 @@ final class ProfileController extends AbstractController
                 $candidate->setCV($CVName);
             }
             
-            // dd($passportFile);
             $entityManager->persist($candidate);
             $entityManager->flush();
     
             $this->addFlash('success', 'Profile updated successfully');
         }
 
-        
+        // Formulaire de changement de mot de passe
+        $formPassword = $this->createForm(ChangePasswordType::class);
+        $formPassword->handleRequest($request);
 
+        if ($formPassword->isSubmitted() && $formPassword->isValid()) {
+            $data = $formPassword->getData();
+            $email = $data['email'];
+            $newPassword = $data['password'];
+            $passwordRepeat = $data['password_repeat'];
+
+            if ($newPassword !== $passwordRepeat) {
+                $this->addFlash('error', 'Passwords do not match.');
+                return $this->redirectToRoute('app_profile');
+            }
+
+            if ($email !== $user->getEmail()) {
+                $this->addFlash('error', 'Email does not match.');
+                return $this->redirectToRoute('app_profile');
+            }
+
+            $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+            $user->setPassword($hashedPassword);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Password updated successfully');
+            return $this->redirectToRoute('app_profile');
+        }
 
         return $this->render('profile/profile.html.twig', [
-            'form' => $formCandidate->createView(),
+            'formCandidate' => $formCandidate->createView(),
+            'formPassword' => $formPassword->createView(),
             'candidate' => $candidate,
-        
         ]);
     }
+
+
+
+
+    // #[Route('/profile/delete', name: 'app_profile_delete', methods: ['POST'])]
+    // public function deleteAccount(EntityManagerInterface $entityManager): Response
+    // {
+    //     /** @var User */
+    //     $user = $this->getUser();
+    //     $candidate = $user->getCandidate();
+
+    //     if ($candidate) {
+    //         $entityManager->remove($candidate);
+    //     }
+
+    //     $entityManager->remove($user);
+    //     $entityManager->flush();
+
+    //     $this->addFlash('success', 'Your account has been deleted successfully.');
+
+    //     return $this->redirectToRoute('app_home');
+    // }
 }
