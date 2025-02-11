@@ -75,6 +75,9 @@ class Candidate
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $passport = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $CV = null;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
@@ -298,6 +301,18 @@ class Candidate
     public function setPassport(?string $passport): static
     {
         $this->passport = $passport;
+
+        return $this;
+    }
+
+    public function getCV(): ?string
+    {
+        return $this->CV;
+    }
+
+    public function setCV(?string $CV): static
+    {
+        $this->CV = $CV;
 
         return $this;
     }

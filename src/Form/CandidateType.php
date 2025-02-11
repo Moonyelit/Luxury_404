@@ -172,6 +172,29 @@ class CandidateType extends AbstractType
             ])
 
 
+            ->add('CVFile', FileType::class,[
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid document',
+                    ])
+                ],
+                'attr' => [
+                    'accept' => '.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx',
+                     'id' => 'cv',
+                ]
+            ])
+
             ->add('jobcategory', EntityType::class, [
                 'class' => JobCategory::class,
                 'choice_label' => 'name',

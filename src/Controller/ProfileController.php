@@ -43,6 +43,8 @@ final class ProfileController extends AbstractController
         if ($formCandidate->isSubmitted() && $formCandidate->isValid()) {
             $profilePictureFile = $formCandidate->get('profilePictureFile')->getData();
             $passportFile = $formCandidate->get('passportFile')->getData();
+            $CVFile = $formCandidate->get('CVFile')->getData();
+
     
             if ($profilePictureFile) {
                 $profilePictureName = $fileUploader->upload($profilePictureFile, $candidate, 'profilePicture', 'profile_pictures');
@@ -52,6 +54,11 @@ final class ProfileController extends AbstractController
             if ($passportFile) {
                 $passportFileName = $fileUploader->upload($passportFile, $candidate, 'passport', 'passports');
                 $candidate->setPassport($passportFileName);
+            }
+
+            if ($CVFile) {
+                $CVName = $fileUploader->upload($CVFile, $candidate, 'CV', 'CVS');
+                $candidate->setCV($CVName);
             }
             
             // dd($passportFile);

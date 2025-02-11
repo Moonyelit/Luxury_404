@@ -294,13 +294,10 @@
 											Passport</span>
 									{{ form_widget(form.passportFile) }}
 									{{ form_errors(form.passportFile) }}
-
 										{# <input id="passport" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="passport" type="file"> #}
-									
-									
 									</div>
 									<div class="existing-file">
-										<a href="#!" target="_blank">
+										<a href="{{ asset('uploads/passports/' ~ candidate.passport ) }}" target="_blank">
 											<i class="material-icons">&#xE24D;</i>
 											passeport.jpg</a>
 									</div>
@@ -314,26 +311,32 @@
 
 
 								{# CV #}
-								{# <div class="file-field input-field">
+								<div class="file-field input-field">
 									<div class="btn btn-lg primary waves-effect waves-light">
 										<span>
-											<i class="material-icons">&#xE24D;</i>
+
+										<i class="material-icons">&#xE24D;</i>
 											CV</span>
-										<input id="cv" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="cv" type="file">
+									{{ form_widget(form.CVFile) }}
+									{{ form_errors(form.CVFile) }}
+
+
+										{# <input id="cv" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="cv" type="file"> #}
 									</div>
 
 									<div class="existing-file">
-										<a href="#!" target="_blank">
+										<a href="{{ asset('uploads/CVS/' ~ candidate.passport ) }}" target="_blank">
 											<i class="material-icons">&#xE24D;</i>
 											CV.pdf</a>
 									</div>
 									<div class="file-path-wrapper">
 										<input class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
 									</div>
-								</div> #}
-
+								</div> 
 							</div>
 						</div>
+
+
 
 						<div class="col-xs-12 col-sm-6">
 							<div class="col-xs-12 col-sm-12">
