@@ -148,7 +148,7 @@ class CandidateType extends AbstractType
                 'placeholder' => 'Choose an option...',
             ])
 
-            ->add('passportfile', FileType::class,[
+            ->add('passportFile', FileType::class,[
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -158,16 +158,16 @@ class CandidateType extends AbstractType
                             'image/jpeg',
                             'image/jpg',
                             'image/png',
-                            'file/pdf',
-                            'file/doc',
-                            'file/docx',
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid document',
                     ])
                 ],
                 'attr' => [
-                    'accept' => '.jpg,.jpeg,.png,.gif',
-                    'id' => 'passport',
+                    'accept' => '.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx',
+                     'id' => 'passport',
                 ]
             ])
 

@@ -217,8 +217,7 @@
 									{{ form_errors(form.profilePictureFile) }}
 								</div>
 
-								{# <img src="{{ asset('uploads/profile_pictures/' ~ candidate.profilePicture ) }}" alt=""> #}
-
+								<img src="{{ asset('uploads/profile_pictures/' ~ candidate.profilePicture ) }}" alt="" style="max-width: 200px; max-height: 200px;">
 								<div class="existing-file">
 									<a href="{{ asset('uploads/profile_pictures/' ~ candidate.profilePicture ) }}" target="_blank">
 										<i class="material-icons">&#xE24D;</i>
@@ -283,19 +282,22 @@
 						<div class="col-xs-12 col-sm-6">
 
 							<div class="card card-panel passport">
+
+
+
+								{# PASSPORT #}
 								<div class="file-field input-field">
 									<div class="btn btn-lg primary waves-effect waves-light">
 										<span>
 
-
+								<i class="material-icons">&#xE24D;</i>
+											Passport</span>
 									{{ form_widget(form.passportFile) }}
 									{{ form_errors(form.passportFile) }}
 
-
-
-											<i class="material-icons">&#xE24D;</i>
-											Passport</span>
-										<input id="passport" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="passport" type="file">
+										{# <input id="passport" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="passport" type="file"> #}
+									
+									
 									</div>
 									<div class="existing-file">
 										<a href="#!" target="_blank">
@@ -307,7 +309,12 @@
 									</div>
 								</div>
 
-								<div class="file-field input-field">
+
+
+
+
+								{# CV #}
+								{# <div class="file-field input-field">
 									<div class="btn btn-lg primary waves-effect waves-light">
 										<span>
 											<i class="material-icons">&#xE24D;</i>
@@ -323,7 +330,7 @@
 									<div class="file-path-wrapper">
 										<input class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
 									</div>
-								</div>
+								</div> #}
 
 							</div>
 						</div>
@@ -419,21 +426,27 @@
 
 {% block AssetsScriptsFIN %}
 
-	<script type="text/javascript">
+    <script type="text/javascript">
+        // Supprime l'élément de préchargement une fois que l'application est prête
+        onAppReady(function () {
+            $('.preload').remove();
+        });
+    </script>
 
-		onAppReady(function () {
-$('.preload').remove();
-});
-	</script>
 
-	    {{ parent() }}
+
+    {{ parent() }}
+    <!-- Inclut les styles de jQuery UI -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Inclut la bibliothèque jQuery UI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+        // Initialise le sélecteur de date avec le format de date "dd/mm/yy"
         $(function() {
             $(".datepicker").datepicker({
                 dateFormat: "dd/mm/yy"
             });
         });
     </script>
+
 {% endblock %}
