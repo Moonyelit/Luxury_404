@@ -52,13 +52,19 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-tachometer-alt');
 
+        yield MenuItem::section('Users');
+        yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Candidates', 'fas fa-file-alt', User::class);
+        yield MenuItem::linkToCrud('Recruters', 'fas fa-user-tie', User::class);
+
         yield MenuItem::section('Jobs');
+        yield MenuItem::linkToCrud('Jobs', 'fas fa-briefcase', User::class);
+        yield MenuItem::linkToCrud('Categories', 'fas fa-list', User::class);
 
-
-        yield MenuItem::section('Candidates');
+        yield MenuItem::section('Genders');
         yield MenuItem::linkToCrud('Genders', 'fas fa-venus-mars', Gender::class);
 
-        yield MenuItem::section('Recruters');
-        yield MenuItem::linkToCrud('Recruters', 'fas fa-user-tie', User::class);
+    
+       
     }
 }
