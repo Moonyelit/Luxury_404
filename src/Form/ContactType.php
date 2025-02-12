@@ -27,7 +27,7 @@ class ContactType extends AbstractType
             ->add('email', EmailType::class, [
                 'empty_data' => '',
                 'label' => 'Email',
-                'required' => true,
+                'required' => false,
             ])
             ->add('phone', TelType::class, [
                 'empty_data' => '',
@@ -37,7 +37,7 @@ class ContactType extends AbstractType
             ->add('message', TextareaType::class, [
                 'empty_data' => '',
                 'label' => 'Message',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'cols' => 50,
                     'rows' => 10,

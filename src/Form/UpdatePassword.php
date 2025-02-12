@@ -1,6 +1,7 @@
 <?php
-namespace App\Form;
+// src/Form/UpdatePassword.php
 
+namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -14,13 +15,16 @@ class UpdatePassword extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label'    => 'Email',
+                'required' => false,
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'Change your password here',
+                'label'    => 'Change your password here',
+                'required' => false,
             ])
             ->add('password_repeat', PasswordType::class, [
-                'label' => 'Confirm your new password',
+                'label'    => 'Confirm your new password',
+                'required' => false,
             ]);
     }
 

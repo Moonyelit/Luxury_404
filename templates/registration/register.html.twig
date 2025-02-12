@@ -133,7 +133,6 @@
 						{{ form_errors(registrationForm.email) }}
 						{{ form_widget(registrationForm.email, {
                         'attr': {
-                            'required': 'required',
                             'data-parsley-trigger': 'change',
                             'data-parsley-error-message': 'A valid email address is required.'
                         }
@@ -148,7 +147,6 @@
 						{{ form_errors(registrationForm.plainPassword.first) }}
 						{{ form_widget(registrationForm.plainPassword.first, {
                         'attr': {
-                            'required': 'required',
                             'data-parsley-trigger': 'change',
                             'data-parsley-minlength': '6',
                             'data-parsley-error-message': 'The password must be at least 6 characters.'
@@ -165,7 +163,6 @@
 						{{ form_errors(registrationForm.plainPassword.second) }}
 						{{ form_widget(registrationForm.plainPassword.second, {
                         'attr': {
-                            'required': 'required',
                             'data-parsley-trigger': 'change',
                             'data-parsley-equalto': '#{{ registrationForm.plainPassword.first.vars.id }}',
                             'data-parsley-error-message': 'Password does not match.'

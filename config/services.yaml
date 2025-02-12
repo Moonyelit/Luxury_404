@@ -27,5 +27,8 @@ services:
             $targetDirectory: '%target_directory%'
             $slugger: '@slugger'
 
+    App\Service\ProfileCompletionService:
+        arguments: []
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
