@@ -6,6 +6,7 @@ use App\Entity\Candidate;
 use App\Entity\User;
 use App\Form\CandidateType;
 use App\Form\ChangePasswordType;
+use App\Form\UpdatePassword;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,7 +71,7 @@ final class ProfileController extends AbstractController
         }
 
         // Formulaire de changement de mot de passe
-        $formPassword = $this->createForm(ChangePasswordType::class);
+        $formPassword = $this->createForm(UpdatePassword::class);
         $formPassword->handleRequest($request);
 
         if ($formPassword->isSubmitted() && $formPassword->isValid()) {

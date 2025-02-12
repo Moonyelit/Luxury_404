@@ -51,9 +51,9 @@ class DefaultController extends AbstractController
         return $this->render('/compagny.html.twig');
     }
 
-    #[Route('/contact', name: 'app_contact')]
-    public function contact(): Response
-    {
-        return $this->render('contact.html.twig');
-    }
+    // #[Route('/contact', name: 'app_contact')]
+    // public function contact(): Response
+    // {
+    //     return $this->render('contact/contact.html.twig');
+    // }
 }
