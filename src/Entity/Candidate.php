@@ -78,10 +78,18 @@ class Candidate
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $CV = null;
 
+    #[ORM\Column]
+    private ?int $completionPercentage = 0;
+
+    #[ORM\Column]
+    private ?bool $isCandidate = false;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->completionPercentage = 0; 
+        $this->isCandidate = false; 
     }
 
     public function getId(): ?int
@@ -317,4 +325,27 @@ class Candidate
         return $this;
     }
 
+    public function getCompletionPercentage(): ?int
+    {
+        return $this->completionPercentage;
+    }
+
+    public function setCompletionPercentage(?int $completionPercentage): self
+    {
+        $this->completionPercentage = $completionPercentage;
+    
+        return $this;
+    }
+
+    public function isCandidate(): ?bool
+    {
+        return $this->isCandidate;
+    }
+
+    public function setIsCandidate(bool $isCandidate): static
+    {
+        $this->isCandidate = $isCandidate;
+
+        return $this;
+    }
 }

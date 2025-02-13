@@ -1,14 +1,35 @@
 <?php
-
 namespace App\Service;
 
 use App\Entity\Candidate;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ProfileCompletionService
-{
+{   
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function updateProfileCompletion(Candidate $candidate): void
+    {
+        $completionPercentage = $this->calculateCompletionPercentage($candidate);
+        $isCandidate = ($completionPercentage === 100);
+
+        dd($completionPercentage, $isCandidate);
+
+        $candidate->setCompletionPercentage($completionPercentage);
+        $candidate->setIsCandidate($isCandidate);
+
+        $this->entityManager->persist($candidate);
+        $this->entityManager->flush();
+    }
+
     public function calculateCompletionPercentage(Candidate $candidate): int
     {
-        // Liste des champs obligatoires pour la complétion
         $requiredFields = [
             'firstName',
             'profilePicture',
@@ -37,7 +58,8 @@ class ProfileCompletionService
             }
         }
 
-        // Calcul du pourcentage de complétion et retour d'un entier
         return (int) round(($filledCount / $totalRequired) * 100);
     }
+
+
 }

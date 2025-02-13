@@ -71,6 +71,8 @@ final class ProfileController extends AbstractController
                 $candidate->setCV($CVName);
             }
 
+            $this->profileCompletionService->updateProfileCompletion($candidate);
+
             $entityManager->persist($candidate);
             $entityManager->flush();
 
@@ -137,4 +139,10 @@ final class ProfileController extends AbstractController
             'completion'    => $completion,
         ]);
     }
+
+
+
+
+
+
 }

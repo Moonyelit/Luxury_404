@@ -61,7 +61,7 @@ class CandidateType extends AbstractType
                     'class' => 'form-control',
                     'id' => 'current_location',
                 ],
-                'label' => 'Current location',
+                'label' => 'Current location (optionnal)',
             ])
 
             ->add('address', TextType::class, [
@@ -131,7 +131,7 @@ class CandidateType extends AbstractType
                     'class' => 'form-control',
                     'id' => 'birth_place',
                 ],
-                'label' => 'Birthplace',
+                'label' => 'Birthplace (optionnal)',
             ])
 
             ->add('experience', EntityType::class, [
@@ -215,7 +215,7 @@ class CandidateType extends AbstractType
                     'class' => 'form-control',
                     'id' => 'description',
                 ],
-                'label' => 'Description',
+                'label' => 'Description (optionnal)',
             ])
 
 
