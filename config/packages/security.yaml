@@ -10,7 +10,6 @@ security:
                 class: App\Entity\User
                 property: email
 
-                
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,6 +22,8 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+            user_checker: App\Security\UserChecker
+                
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -33,6 +34,8 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+
+    access_denied_url: /access-denied
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
