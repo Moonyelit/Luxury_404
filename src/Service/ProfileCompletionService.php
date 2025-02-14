@@ -19,8 +19,6 @@ class ProfileCompletionService
         $completionPercentage = $this->calculateCompletionPercentage($candidate);
         $isCandidate = ($completionPercentage === 100);
 
-        dd($completionPercentage, $isCandidate);
-
         $candidate->setCompletionPercentage($completionPercentage);
         $candidate->setIsCandidate($isCandidate);
 
