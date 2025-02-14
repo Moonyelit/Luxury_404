@@ -2,21 +2,22 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Gender;
+use App\Entity\JobCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class GenderCrudController extends AbstractCrudController
+class JobCategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Gender::class;
+        return JobCategory::class;
     }
 
+    
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name'),
+            TextField::new('time'),
         ];
     }
 }

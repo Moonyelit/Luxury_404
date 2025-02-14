@@ -22,7 +22,22 @@ class ProfileCompletionService
         $candidate->setCompletionPercentage($completionPercentage);
         $candidate->setIsCandidate($isCandidate);
 
+        $user = $candidate->getUser();
+        $roles = $user->getRoles();
+
+        if ($isCandidate) {
+            if (!in_array('ROLE_CANDIDATE', $roles)) {
+                $roles[] = 'ROLE_CANDIDATE';
+            }
+        } else {
+            $roles = array_diff($roles, ['ROLE_CANDIDATE']);
+        }
+
+        $user->setRoles($roles);	
+
+
         $this->entityManager->persist($candidate);
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 

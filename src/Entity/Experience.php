@@ -66,6 +66,11 @@ class Experience
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->time;
+    }
+
     public function removeCandidate(Candidate $candidate): static
     {
         if ($this->candidates->removeElement($candidate)) {

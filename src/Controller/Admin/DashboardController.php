@@ -2,7 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Candidate;
 use App\Entity\Gender;
+use App\Entity\JobCategory;
+use App\Entity\JobOffer;
+use App\Entity\Recruiter;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -54,12 +58,12 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Users');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
-        yield MenuItem::linkToCrud('Candidates', 'fas fa-file-alt', User::class);
-        yield MenuItem::linkToCrud('Recruters', 'fas fa-user-tie', User::class);
+        yield MenuItem::linkToCrud('Candidates', 'fas fa-file-alt', Candidate::class);
+        yield MenuItem::linkToCrud('Recruters', 'fas fa-user-tie', Recruiter::class);
 
         yield MenuItem::section('Jobs');
-        yield MenuItem::linkToCrud('Jobs', 'fas fa-briefcase', User::class);
-        yield MenuItem::linkToCrud('Categories', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('Jobs', 'fas fa-briefcase', JobOffer::class);
+        yield MenuItem::linkToCrud('Categories', 'fas fa-list', JobCategory::class);
 
         yield MenuItem::section('Genders');
         yield MenuItem::linkToCrud('Genders', 'fas fa-venus-mars', Gender::class);

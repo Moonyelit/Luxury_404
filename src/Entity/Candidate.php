@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CandidateRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -84,12 +86,19 @@ class Candidate
     #[ORM\Column]
     private ?bool $isCandidate = false;
 
+    /**
+     * @var Collection<int, Apply>
+     */
+    #[ORM\OneToMany(targetEntity: Apply::class, mappedBy: 'candidate')]
+    private Collection $applies;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->completionPercentage = 0; 
-        $this->isCandidate = false; 
+        $this->isCandidate = false;
+        $this->applies = new ArrayCollection(); 
     }
 
     public function getId(): ?int
@@ -345,6 +354,36 @@ class Candidate
     public function setIsCandidate(bool $isCandidate): static
     {
         $this->isCandidate = $isCandidate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Apply>
+     */
+    public function getApplies(): Collection
+    {
+        return $this->applies;
+    }
+
+    public function addApply(Apply $apply): static
+    {
+        if (!$this->applies->contains($apply)) {
+            $this->applies->add($apply);
+            $apply->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApply(Apply $apply): static
+    {
+        if ($this->applies->removeElement($apply)) {
+            // set the owning side to null (unless already changed)
+            if ($apply->getCandidate() === $this) {
+                $apply->setCandidate(null);
+            }
+        }
 
         return $this;
     }

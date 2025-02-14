@@ -29,9 +29,16 @@ class JobCategory
     #[ORM\Column(nullable: true)]
     private ?bool $isCategory = null;
 
+    /**
+     * @var Collection<int, JobOffer>
+     */
+    #[ORM\OneToMany(targetEntity: JobOffer::class, mappedBy: 'jobCategory')]
+    private Collection $jobOffers;
+
     public function __construct()
     {
         $this->candidates = new ArrayCollection();
+        $this->jobOffers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +96,41 @@ class JobCategory
     public function setIsCategory(?bool $isCategory): static
     {
         $this->isCategory = $isCategory;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection<int, JobOffer>
+     */
+    public function getJobOffers(): Collection
+    {
+        return $this->jobOffers;
+    }
+
+    public function addJobOffer(JobOffer $jobOffer): static
+    {
+        if (!$this->jobOffers->contains($jobOffer)) {
+            $this->jobOffers->add($jobOffer);
+            $jobOffer->setJobCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobOffer(JobOffer $jobOffer): static
+    {
+        if ($this->jobOffers->removeElement($jobOffer)) {
+            // set the owning side to null (unless already changed)
+            if ($jobOffer->getJobCategory() === $this) {
+                $jobOffer->setJobCategory(null);
+            }
+        }
 
         return $this;
     }
