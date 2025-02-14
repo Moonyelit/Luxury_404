@@ -46,7 +46,7 @@ class AdminController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin_dashboard');
+        return $this->redirectToRoute('app_admin_dashboard_index');
     }
 
     private function sendRejectionEmail(User $user, string $invalidField): void

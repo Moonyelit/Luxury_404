@@ -120,11 +120,22 @@
 										<span>Profile</span>
 									</a>
 								</li>
+	
+							{% if 'ROLE_ADMIN' in app.user.roles %}
 								<li class=" dropdown">
+									<a target="_self" href="{{ path('app_admin_dashboard_index') }}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+										<span>Dashboard</span>
+									</a>    
+								</li>
+							{% endif %}	
+							
+							<li class=" dropdown">
 									<a target="_self" href="{{ path('app_logout') }}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
 										<span>Logout</span>
 									</a>
 								</li>
+
+
 							{% else %}
 								<li class=" dropdown">
 									<a target="_self" href="{{ path('app_login') }}" >
