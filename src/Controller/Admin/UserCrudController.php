@@ -51,7 +51,7 @@ class UserCrudController extends AbstractCrudController
     //     $entityManager->flush();
     // }
 
-    // quan on update un user
+    // quand on update un user
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
 {
     if ($entityInstance instanceof User) {
