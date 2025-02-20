@@ -14,10 +14,4 @@ class JobCategoryCrudController extends AbstractCrudController
     }
 
     
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            TextField::new('time'),
-        ];
-    }
 }

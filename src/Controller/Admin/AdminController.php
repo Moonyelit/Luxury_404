@@ -11,18 +11,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
+use Psr\Log\LoggerInterface;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
     private MailerInterface $mailer;
+    private LoggerInterface $logger;
 
-    public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer)
+    public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer, LoggerInterface $logger)
     {
         $this->entityManager = $entityManager;
         $this->mailer = $mailer;
+        $this->logger = $logger;
     }
 
     #[Route('/manage-roles/{id}', name: 'admin_manage_roles')]
@@ -65,10 +67,12 @@ class AdminController extends AbstractController
         $recruiter->setEmail($user->getEmail());
         $recruiter->setDateCreated(new \DateTimeImmutable());
 
-        dd("createRecruiterForUser called", $user);
+        $this->logger->info('Creating recruiter for user', ['user' => $user]);
 
         $this->entityManager->persist($recruiter);
         $this->entityManager->flush();
+
+        $this->logger->info('Recruiter created and persisted', ['recruiter' => $recruiter]);
     }
 
     // Supprime le recruteur associé à l'utilisateur donné
@@ -77,8 +81,10 @@ class AdminController extends AbstractController
         $recruiter = $this->entityManager->getRepository(Recruiter::class)->findOneBy(['user' => $user]);
 
         if ($recruiter) {
+            $this->logger->info('Removing recruiter for user', ['user' => $user]);
             $this->entityManager->remove($recruiter);
             $this->entityManager->flush();
+            $this->logger->info('Recruiter removed', ['recruiter' => $recruiter]);
         }
     }
 
@@ -95,6 +101,10 @@ class AdminController extends AbstractController
                 'invalid_field' => $invalidField
             ]);
 
+        $this->logger->info('Sending rejection email', ['user' => $user, 'invalid_field' => $invalidField]);
+
         $this->mailer->send($email);
+
+        $this->logger->info('Rejection email sent', ['user' => $user]);
     }
 }
