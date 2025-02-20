@@ -9,12 +9,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions; // Ajout de l'importation manquante
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud; // Ajout de l'importation manquante
 
 class RecruiterCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
         return Recruiter::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->disable(Crud::PAGE_NEW);
     }
 
     public function configureFields(string $pageName): iterable
@@ -41,7 +49,6 @@ class RecruiterCrudController extends AbstractCrudController
         ];
     }
 
-
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if (!$entityInstance instanceof Recruiter) return;
@@ -58,6 +65,5 @@ class RecruiterCrudController extends AbstractCrudController
         }
 
         parent::persistEntity($entityManager, $entityInstance);
-
     }
 }

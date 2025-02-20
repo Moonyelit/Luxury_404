@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Recruiter;
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -24,6 +26,55 @@ class UserCrudController extends AbstractCrudController
         return $actions
             ->disable(Crud::PAGE_NEW);
     }
+
+    // quand on crée un user
+    // public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    // {
+
+    //     if ($entityInstance instanceof User) {
+            
+
+    //         $roles = $entityInstance->getRoles();
+
+    //         if (in_array('ROLE_RECRUITER', $roles)) {
+    //             $recruiter = new Recruiter();
+    //             $recruiter->setUser($entityInstance);
+
+    //             $entityManager->persist($recruiter);
+    //         }
+
+
+    //     }
+
+
+    //     $entityManager->persist($entityInstance);
+    //     $entityManager->flush();
+    // }
+
+    // quan on update un user
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+{
+    if ($entityInstance instanceof User) {
+        $roles = $entityInstance->getRoles();
+
+        if (in_array('ROLE_RECRUITER', $roles)) {
+            $recruiterRepository = $entityManager->getRepository(Recruiter::class);
+            $existingRecruiter = $recruiterRepository->findOneBy(['user' => $entityInstance]);
+
+            if (!$existingRecruiter) {
+                $recruiter = new Recruiter();
+                $recruiter->setUser($entityInstance);
+                $entityManager->persist($recruiter);
+            }
+        }
+    }
+
+    $entityManager->persist($entityInstance);
+    $entityManager->flush();
+}
+
+
+
 
     public function configureFields(string $pageName): iterable
     {
