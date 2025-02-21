@@ -32,9 +32,16 @@ class JobController extends AbstractController
             throw $this->createNotFoundException('The job does not exist');
         }
 
+        $allJobs = $jobOfferRepository->findBy([], ['id' => 'ASC']);
+        $currentJobIndex = array_search($job, $allJobs);
+        $previousJob = $currentJobIndex > 0 ? $allJobs[$currentJobIndex - 1] : null;
+        $nextJob = $currentJobIndex < count($allJobs) - 1 ? $allJobs[$currentJobIndex + 1] : null;
+
         return $this->render('jobs/show.html.twig', [
             'jobCategories' => $jobCategories,
             'job' => $job,
+            'previousJob' => $previousJob,
+            'nextJob' => $nextJob,
         ]);
     }
 }
