@@ -238,17 +238,9 @@
 			<div class="container">
 				<ul class="" role="navigation">
 					<li class="active dropdown">
-						<a target="_self" href="{{ path('app_home') }}">
-							<span>Home</span>
-						</a>
-					</li>
-					<li class=" dropdown">
-						<a target="_self" href="{{ path('app_jobsShow') }}">
-							<span>Jobs offers</span>
-						</a>
-					</li>
-					<li class=" dropdown">
-						<a target="_self" href="{{ path('app_compagny') }}">
+						<a target="_self" href="{{ path('app_home') }}"><span>Home</span></a></li>
+					<li class=" dropdown"><a target="_self" href="{{ path('app_jobsShow', {'slug': 'example-slug'}) }}"><span>Jobs offers</span></a></li>
+					<li class=" dropdown"><a target="_self" href="{{ path('app_compagny') }}">
 							<span>About us</span>
 						</a>
 					</li>

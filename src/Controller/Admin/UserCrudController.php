@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Candidate;
 use App\Entity\Recruiter;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,7 +33,7 @@ class UserCrudController extends AbstractCrudController
     // {
 
     //     if ($entityInstance instanceof User) {
-            
+
 
     //         $roles = $entityInstance->getRoles();
 
@@ -53,25 +54,46 @@ class UserCrudController extends AbstractCrudController
 
     // quand on update un user
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
-{
-    if ($entityInstance instanceof User) {
-        $roles = $entityInstance->getRoles();
-
-        if (in_array('ROLE_RECRUITER', $roles)) {
+    {
+        if ($entityInstance instanceof User) {
+            $roles = $entityInstance->getRoles();
             $recruiterRepository = $entityManager->getRepository(Recruiter::class);
             $existingRecruiter = $recruiterRepository->findOneBy(['user' => $entityInstance]);
-
-            if (!$existingRecruiter) {
-                $recruiter = new Recruiter();
-                $recruiter->setUser($entityInstance);
-                $entityManager->persist($recruiter);
+    
+            if (in_array('ROLE_RECRUITER', $roles)) {
+                if (!$existingRecruiter) {
+                    $recruiter = new Recruiter();
+                    $recruiter->setUser($entityInstance);
+                    $recruiter->setDateCreated(new \DateTimeImmutable());
+                    $entityManager->persist($recruiter);
+                }
+            } else {
+                if ($existingRecruiter) {
+                    $entityManager->remove($existingRecruiter);
+                }
+            }
+    
+            $candidateRepository = $entityManager->getRepository(Candidate::class);
+            $existingCandidate = $candidateRepository->findOneBy(['user' => $entityInstance]);
+    
+            if (in_array('ROLE_CANDIDATE', $roles)) {
+                if (!$existingCandidate) {
+                    $candidate = new Candidate();
+                    $candidate->setUser($entityInstance);
+                    $entityManager->persist($candidate);
+                }
+            } else {
+                if ($existingCandidate) {
+                    $entityManager->remove($existingCandidate);
+                }
             }
         }
+    
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
     }
 
-    $entityManager->persist($entityInstance);
-    $entityManager->flush();
-}
+    
 
 
 
@@ -92,8 +114,8 @@ class UserCrudController extends AbstractCrudController
             BooleanField::new('isVerified'),
         ];
 
-        if ($pageName === Crud::PAGE_EDIT){
-            $fields[] = TextField::new('password') ->onlyOnForms();
+        if ($pageName === Crud::PAGE_EDIT) {
+            $fields[] = TextField::new('password')->onlyOnForms();
         }
 
         return $fields;

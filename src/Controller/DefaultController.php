@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\JobCategoryRepository;
+use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -8,28 +10,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(JobCategoryRepository $jobCategoryRepository, JobOfferRepository $jobOfferRepository): Response
     {
-        return $this->render('index.html.twig');
+        $jobCategories = $jobCategoryRepository->findAll();
+        $jobOffers = $jobOfferRepository->findAll();
+
+
+        return $this->render('index.html.twig', [
+            'jobCategories' => $jobCategories,
+            'jobOffers' => $jobOffers,
+        ]);
+        
     }
 
-    #[Route('/jobs/index', name: 'app_jobsIndex')]
-    public function jobsIndex(): Response
-    {
-        return $this->render('jobs/index.html.twig');
-    }
 
-    #[Route('/jobs/show', name: 'app_jobsShow')]
-    public function jobsShow(): Response
-    {
-        return $this->render('jobs/show.html.twig');
-    }
 
-    #[Route('/compagny', name: 'app_compagny')]
-    public function compagny(): Response
-    {
-        return $this->render('/compagny.html.twig');
-    }
+
+
 
 
 }

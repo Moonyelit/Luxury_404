@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\JobOfferRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
@@ -54,6 +55,9 @@ class JobOffer
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
     public function getId(): ?int
     {
@@ -214,5 +218,28 @@ class JobOffer
         $this->updateAt = $updateAt;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function generateSlug() : void
+    {
+        if ($this->description) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->description);
+        }
     }
 }

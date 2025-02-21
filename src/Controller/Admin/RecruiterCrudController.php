@@ -41,7 +41,6 @@ class RecruiterCrudController extends AbstractCrudController
             TextField::new('societyName'),
             TextField::new('activity'),
             TextField::new('contactName'),
-            TextField::new('job'),
             TextField::new('phoneNumber'),
             TextField::new('email'),
             TextField::new('notes'),

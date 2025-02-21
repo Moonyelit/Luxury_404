@@ -22,10 +22,16 @@ class JobOfferCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            // AssociationField::new('recruiter.id')->setCrudController(RecruiterCrudController::class)->setFormTypeOption('choice_label', 'name'),
+            IdField::new('id')->hideOnForm(),
+            AssociationField::new('recruiter')
+            ->setCrudController(RecruiterCrudController::class)
+            ->setFormTypeOption('choice_label', function ($recruiter) {
+                $contactName = $recruiter->getContactName() ?: 'N/A';
+                $societyName = $recruiter->getSocietyName() ?: 'N/A';
+                return sprintf('%d - %s - %s', $recruiter->getId(), $contactName, $societyName);
+            }),
             AssociationField::new('jobCategory')->setCrudController(JobCategoryCrudController::class)->setFormTypeOption('choice_label', 'name'),
-            IntegerField::new('reference'),
+            // IntegerField::new('reference'),
             TextField::new('description'),
             BooleanField::new('isActivate'),
             TextField::new('notes'),
@@ -36,6 +42,7 @@ class JobOfferCrudController extends AbstractCrudController
             IntegerField::new('salary'),
             DateTimeField::new('createdAt')->hideOnForm(),
             DateTimeField::new('updateAt')->hideOnForm(),
+            TextField::new('slug')->hideOnForm(),
         ];
     }
 }

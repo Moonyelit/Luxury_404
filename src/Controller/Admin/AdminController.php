@@ -41,7 +41,7 @@ class AdminController extends AbstractController
             } elseif ($action === 'demote_candidate') {
                 $roles = array_diff($roles, ['ROLE_CANDIDATE']);
                 $this->sendRejectionEmail($user, $request->request->get('invalid_field'));
-            } elseif ($action === 'promote_recruiter') {
+            } if ($action === 'promote_recruiter') {
                 if (!in_array('ROLE_RECRUITER', $roles)) {
                     $roles[] = 'ROLE_RECRUITER';
                     $this->createRecruiterForUser($user);
