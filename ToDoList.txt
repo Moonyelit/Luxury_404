@@ -1,0 +1,6 @@
+Possibilité de postuler annonce mais si 100% et 
+Dashboard Recruiter
+Création et suppression annnonce depuis recruiter
+Accepter ou refuser un candidat
+Page demande recruter ou Candidat
+Mot de passe oublié
