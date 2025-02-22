@@ -34,6 +34,10 @@ Luxury/
 └── vendor/
 ```
 
+## 🌐 Voir le Projet
+
+Pour voir à quoi ressemble le site, cliquez sur ce lien : [Voir le projet](https://elodie-fouger-luxury-services.pro4.garage404.com/)
+
 ## 🚀 Démarrage Rapide
 
 1. Clonez le dépôt :
@@ -58,13 +62,9 @@ Luxury/
    symfony server:start
    ```
 
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
 ## 👥 Contributeurs
 
-- [Votre Nom](https://github.com/votre-utilisateur)
+- [FOUGEROUSE Élodie](https://github.com/Moonyelit/Luxury_404)
 
 ---
 
